@@ -1,6 +1,19 @@
 #! /Library/Frameworks/Python.framework/Versions/3.5/bin/python3
 # -*- coding: UTF-8 -*-
 
+from send import send
+import json
+from jsonschema import validate
+
+
+url = ("http://api.uat.chunbo.com:90/CookbookHome/getTopicList")
+Headers = {"siteid":"1","resoursrverion":"2.7.0"}
+body = {"Page":"1","pagesize":"10"}
+
+
+result = send(url,Headers,body)
+
+
 
 
 schema = {
@@ -74,3 +87,9 @@ schema = {
     "flag"
   ]
 }
+try:
+    validate(result,schema)
+except ValidationError as v:
+    print("validate failed",v)
+else:
+    print("validete succed")
