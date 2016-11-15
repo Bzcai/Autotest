@@ -5,19 +5,11 @@ from send import send
 import json
 from jsonschema import validate
 
-
+site = [1,2,4]
 url = ("http://api.uat.chunbo.com:90/CookbookHome/getTopicList")
-Headers = {"siteid":"1","resoursrverion":"2.7.0"}
-body = {"Page":"1","pagesize":"10"}
-
-
-result = send(url,Headers,body)
-
-
-
-
+body = {'Page':'1','pagesize':'10'}
 schema = {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://api.uat.chunbo.com:90/CookbookHome/getTopicList#",
   "type": "object",
   "properties": {
     "title": {
@@ -87,9 +79,14 @@ schema = {
     "flag"
   ]
 }
-try:
-    validate(result,schema)
-except ValidationError as v:
-    print("validate failed",v)
-else:
-    print("validete succed")
+for x in site:
+   Headers={"siteid":"%s"%x,"resoursrverion":"2.7.0"}
+   # print(json.dumps(body))
+   # print(Headers)
+   result = send(url,Headers,body)
+   try:
+       validate(result,schema)
+   except validationError as v:
+       print("validate 站点",x," failed",v)
+   else:
+       print("validete 站点",x,"  succed")
