@@ -142,6 +142,6 @@ for x in site:
    try:
        validate(result,schema)
    except validationError as v:
-       print("validate 站点",x," failed",v)
+       print("灵感首页 站点",x," 校验失败",v)
    else:
-       print("validete 站点",x,"  succed")
+       print("灵感首页 站点",x,"  数据正常")
